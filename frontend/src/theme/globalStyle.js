@@ -1,11 +1,21 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  body {
-    padding: 0;
-    margin: 0;
-    font-family: 'Lato', sans-serif;
+  * {
+    box-sizing: border-box;
   }
-`
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;;
+    margin: 0;
+    padding: 0;
+  }
+`;
 
 export default GlobalStyle;
