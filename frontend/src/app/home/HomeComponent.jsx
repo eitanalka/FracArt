@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
 import styled from 'styled-components';
 
 import Particles from './ParticlesComponent';
@@ -25,24 +27,57 @@ const HomeDialog = styled.div`
 `;
 
 const HomeTitle = styled.h1`
-  font-size: 5rem;
+  font-size: 10rem;
+  margin-bottom: 2rem;
 `;
 
 const HomeSubtitle = styled.h2`
-  font-size: 2rem;
+  font-size: 3rem;
   margin-top: 0;
+  margin-bottom: 2.5rem;
 `;
 
-const HomeComponent = () => (
-  <HomeWrapper>
-    <Particles />
-    <HomeDialog>
-      <HomeTitle>FracArt</HomeTitle>
-      <HomeSubtitle>Create, share, and explore stunning fractals</HomeSubtitle>
-      {/* Google Login Button */}
-      {/* Continue as guest */}
-    </HomeDialog>
-  </HomeWrapper>
-);
+const StyledGoogleLogin = styled(GoogleLogin)`
+  color: ${props => props.theme.buttonColor} !important;
+  font-size: 2rem !important;
+  margin-bottom: 1.5rem;
+`;
+
+const StyledLink = styled(Link)`
+  color: white;
+  font-size: 1.5rem;
+  text-decoration: none;
+`;
+
+class HomeComponent extends Component {
+  onGoogleSignInSuccess = response => {
+    console.log(response);
+  };
+
+  onGoogleSignInFail = response => {
+    console.log(response);
+  };
+
+  render() {
+    return (
+      <HomeWrapper>
+        <Particles />
+        <HomeDialog>
+          <HomeTitle>FracArt</HomeTitle>
+          <HomeSubtitle>
+            Create, share, and explore stunning fractals
+          </HomeSubtitle>
+          <StyledGoogleLogin
+            clientId="487573911432-js1d59ujj2m6q1o4cvbpi9i0phkjav05.apps.googleusercontent.com"
+            buttonText="Sign in with Google"
+            onSuccess={this.onGoogleSignInSuccess}
+            onFailure={this.onGoogleSignInFail}
+          />
+          <StyledLink to="/create">Or continue as guest</StyledLink>
+        </HomeDialog>
+      </HomeWrapper>
+    );
+  }
+}
 
 export default HomeComponent;

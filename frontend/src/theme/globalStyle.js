@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
+    background: ${props => props.theme.background};
     font-size: 62.5%;
   }
 
