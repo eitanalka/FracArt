@@ -2,6 +2,15 @@
   "name": "fracart-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node server/index.js",
+    "dev-migrate": "cross-env DATABASE_URL=postgres://localhost/fracart_local node-pg-migrate -m ./server/migrations",
+    "clean": "rm -rf dist && mkdir dist",
+    "build-babel": "babel server -d ./dist --ignore \"server/**/*.test.js\"",
+    "build": "yarn clean && yarn build-babel",
+    "migrate-up": "node-pg-migrate -m ./server/migrations up",
+    "start": "yarn migrate-up && yarn build && node ./dist/index.js"
+  },
   "repository": "https://github.com/eitanalka/FracArt",
   "author": "Eitan Alkaslassy",
   "license": "MIT",
