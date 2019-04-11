@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import GoogleLogin from 'react-google-login';
+import GoogleSignIn from 'react-google-login';
 import styled from 'styled-components';
 
 import Particles from './ParticlesComponent';
@@ -37,7 +37,7 @@ const HomeSubtitle = styled.h2`
   margin-bottom: 2.5rem;
 `;
 
-const StyledGoogleLogin = styled(GoogleLogin)`
+const StyledGoogleSignIn = styled(GoogleSignIn)`
   color: ${props => props.theme.buttonColor} !important;
   font-size: 2rem !important;
   margin-bottom: 1.5rem;
@@ -67,7 +67,7 @@ class HomeComponent extends Component {
           <HomeSubtitle>
             Create, share, and explore stunning fractals
           </HomeSubtitle>
-          <StyledGoogleLogin
+          <StyledGoogleSignIn
             clientId="487573911432-js1d59ujj2m6q1o4cvbpi9i0phkjav05.apps.googleusercontent.com"
             buttonText="Sign in with Google"
             onSuccess={this.onGoogleSignInSuccess}
