@@ -4,7 +4,6 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import massive from 'massive';
-import passport from './utils/passport';
 import router from './routes';
 import getDbConfig from './dbconfig';
 
@@ -19,8 +18,6 @@ app.use(morgan('combined'));
 
 // parse json object before sending it to router
 app.use(express.json());
-
-app.use(passport.initialize());
 
 // all api requests are expected to start with /api
 app.use('/api', router);
