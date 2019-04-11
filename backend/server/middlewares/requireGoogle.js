@@ -26,7 +26,13 @@ const requireGoogle = async (req, res, next) => {
       await db.user.save({ email: payload.email, google_id: payload.sub });
     }
 
-    return res.status(401).send('Must create username');
+    // if user needs to update username allow them through
+    if (req.path.includes('/username')) {
+      req.googlePayload = payload;
+      return next();
+    }
+
+    return res.status(403).send('Must create username');
   } catch (error) {
     res.status(401).send('Unauthorized');
     return next(error);

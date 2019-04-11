@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import GoogleSignIn from 'react-google-login';
 import styled from 'styled-components';
 
-import Particles from './ParticlesComponent';
+import { Form, FormInput, FormError, Particles } from '../common';
+
+import { validateUsername } from '../../utils/validators';
 
 const HomeWrapper = styled.div`
   align-items: center;
@@ -45,35 +47,123 @@ const StyledGoogleSignIn = styled(GoogleSignIn)`
 
 const StyledLink = styled(Link)`
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   text-decoration: none;
 `;
 
 class HomeComponent extends Component {
-  onGoogleSignInSuccess = response => {
-    console.log(response);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      googleToken: '',
+      username: '',
+      error: '',
+    }
   };
 
-  onGoogleSignInFail = response => {
-    console.log(response);
+  componentDidUpdate() {
+    const {
+      googleSignInRequestSent,
+      hasUsername,
+      createdUsername,
+      createUsernameRequestSent,
+      history,
+    } = this.props;
+
+    if (googleSignInRequestSent && hasUsername) {
+      return history.push('/create');
+    }
+
+    if(createdUsername) {
+      return this.props.googleSignIn(this.state.googleToken);
+    }
+
+    if (createUsernameRequestSent) {
+      this.props.resetUsernameRequest();
+      return this.setState(() => ({ error: 'Username already in use' }));
+    }
+  }
+
+  onGoogleSignInSuccess = response => {
+    const googleToken = response.tokenId;
+    this.setState(() => ({ googleToken }));
+    this.props.googleSignIn(googleToken);
   };
+
+  onGoogleSignInFail = () => {
+    return; 
+  };
+
+  onUsernameChange = event => {
+    const username = event.target.value;
+    this.setState(() => ({ username }));
+  };
+
+  onSubmit = event => {
+    event.preventDefault();
+
+    const { username } = this.state;
+
+    if (!validateUsername(username)) {
+      return this.setState(() => ({
+        error: `Please enter a valid username.
+        Usernames must be between 4 and 25 characters,
+        must only contain letters, numbers, and underscores,
+        start with a letter or number, must not have
+        more than two underscores in a row, and must end
+        with a letter or number.`
+      }));
+    }
+
+    this.setState(() => ({ error: '' }));
+
+    this.props.createUsername(username, this.state.googleToken);
+  };
+  
+  LoginDialog = () => (
+    <React.Fragment>
+      <HomeTitle>FracArt</HomeTitle>
+        <HomeSubtitle>
+          Create, share, and explore stunning fractals
+        </HomeSubtitle>
+        <StyledGoogleSignIn
+          clientId="487573911432-js1d59ujj2m6q1o4cvbpi9i0phkjav05.apps.googleusercontent.com"
+          buttonText="Sign in with Google"
+          onSuccess={this.onGoogleSignInSuccess}
+          onFailure={this.onGoogleSignInFail}
+        />
+      <StyledLink to="/create">Or continue as guest</StyledLink>    
+    </React.Fragment>
+  );
+  
+  CreateUsernameDialog = () => (
+    <React.Fragment>
+      <Form onSubmit={this.onSubmit}>
+        <HomeSubtitle>Create a username:</HomeSubtitle>
+        {this.state.error && (
+          <FormError>{this.state.error}</FormError>
+        )}
+        <FormInput 
+          type="text"
+          placeholder="Username"
+          value={this.state.username}
+          onChange={this.onUsernameChange}
+          required
+        />
+      </Form>
+    </React.Fragment>
+  );
 
   render() {
+    const { googleSignInRequestSent, hasUsername } = this.props;
+
     return (
       <HomeWrapper>
         <Particles />
         <HomeDialog>
-          <HomeTitle>FracArt</HomeTitle>
-          <HomeSubtitle>
-            Create, share, and explore stunning fractals
-          </HomeSubtitle>
-          <StyledGoogleSignIn
-            clientId="487573911432-js1d59ujj2m6q1o4cvbpi9i0phkjav05.apps.googleusercontent.com"
-            buttonText="Sign in with Google"
-            onSuccess={this.onGoogleSignInSuccess}
-            onFailure={this.onGoogleSignInFail}
-          />
-          <StyledLink to="/create">Or continue as guest</StyledLink>
+          {!googleSignInRequestSent && <this.LoginDialog />}
+          {googleSignInRequestSent && !hasUsername && <this.CreateUsernameDialog />}
         </HomeDialog>
       </HomeWrapper>
     );

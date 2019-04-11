@@ -1,2 +1,2 @@
-import HomeComponent from './HomeComponent';
-export default HomeComponent;
+import HomeContainer from './HomeContainer';
+export default HomeContainer;

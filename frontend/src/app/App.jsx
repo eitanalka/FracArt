@@ -17,6 +17,7 @@ class App extends Component {
           <GlobalStyle />
           <Router history={history}>
             <div>
+            {/* set conditional render for / route */}
               <Route exact path="/" component={Home} />
             </div>
           </Router>

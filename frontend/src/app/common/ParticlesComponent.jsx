@@ -6,7 +6,7 @@ const ParticlesComponent = () => (
     params={{
       particles: {
         number: {
-          value: 80,
+          value: 150,
           density: {
             enable: true,
             value_area: 1500
@@ -21,7 +21,7 @@ const ParticlesComponent = () => (
           speed: 0.05
         },
         size: {
-          value: 1
+          value: 2
         },
         opacity: {
           anim: {
