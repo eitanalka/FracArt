@@ -5,7 +5,7 @@ import { authOperations } from '../duck';
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isLoggedIn,
   hasUsername: state.auth.hasUsername,
-  googleSignInRequestSent: state.auth.googleSignInRequestSent,
+  unauthorized: state.auth.unauthorized,
   createdUsername: state.auth.createdUsername,
   createUsernameRequestSent: state.auth.createUsernameRequestSent,
 });

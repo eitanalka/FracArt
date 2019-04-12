@@ -10,7 +10,12 @@ const googleSignIn = googleToken => {
       });
       return dispatch(actions.googleSignIn(googleToken));
     } catch (error) {
-      return dispatch(actions.noUsername());
+      if (error.response.status === 403) {
+        return dispatch(actions.noUsername());
+      }
+      if (error.response.status === 401) {
+        return dispatch(actions.unauthorized());
+      }
     }
   }
 };

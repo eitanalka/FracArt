@@ -5,6 +5,10 @@ const googleSignIn = googleToken => ({
   googleToken
 });
 
+const unauthorized = () => ({
+  type: types.UNAUTHORIZED,
+})
+
 const noUsername = () => ({
   type: types.NO_USERNAME,
 })
@@ -27,4 +31,5 @@ export default {
   createdUsernameSuccess,
   createdUsernameFail,
   resetUsernameRequest,
+  unauthorized,
 }

@@ -5,6 +5,7 @@ const initialState = {
   isLoggedIn: false,
   hasUsername: false,
   googleSignInRequestSent: false,
+  unauthorized: false,
   createdUsername: false,
   createUsernameRequestSent: false,
 };
@@ -13,10 +14,17 @@ const authReducer = (state = initialState, action) => {
   switch(action.type) {
     case types.GOOGLE_SIGN_IN:
       return {
+        ...initialState,
         googleToken: action.googleToken,
         isLoggedIn: true,
         hasUsername: true,
         googleSignInRequestSent: true,
+      }
+    case types.UNAUTHORIZED:
+      return {
+        ...initialState,
+        googleSignInRequestSent: true,
+        unauthorized: true,
       }
     case types.NO_USERNAME:
       return {

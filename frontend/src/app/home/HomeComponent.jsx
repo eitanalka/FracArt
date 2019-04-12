@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import GoogleSignIn from 'react-google-login';
 import styled from 'styled-components';
 
-import { Form, FormInput, FormError, Particles } from '../common';
+import { Form, FormInput, FormError } from '../common';
 
 import { validateUsername } from '../../utils/validators';
 
@@ -64,16 +64,9 @@ class HomeComponent extends Component {
 
   componentDidUpdate() {
     const {
-      googleSignInRequestSent,
-      hasUsername,
       createdUsername,
       createUsernameRequestSent,
-      history,
     } = this.props;
-
-    if (googleSignInRequestSent && hasUsername) {
-      return history.push('/create');
-    }
 
     if(createdUsername) {
       return this.props.googleSignIn(this.state.googleToken);
@@ -156,14 +149,13 @@ class HomeComponent extends Component {
   );
 
   render() {
-    const { googleSignInRequestSent, hasUsername } = this.props;
+    const { hasUsername, unauthorized } = this.props;
 
     return (
       <HomeWrapper>
-        <Particles />
         <HomeDialog>
-          {!googleSignInRequestSent && <this.LoginDialog />}
-          {googleSignInRequestSent && !hasUsername && <this.CreateUsernameDialog />}
+          {unauthorized && <this.LoginDialog />}
+          {!hasUsername && !unauthorized && <this.CreateUsernameDialog />}
         </HomeDialog>
       </HomeWrapper>
     );
