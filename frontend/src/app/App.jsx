@@ -35,6 +35,7 @@ class App extends Component {
               {googleSignInRequestSent && (
                 <Route exact path="/" component={isLoggedIn ? Create : Home} />
               )}
+              <Route path="/create" component={Create} />
             </RoutesWrapper>
           </Router>
         </React.Fragment>
