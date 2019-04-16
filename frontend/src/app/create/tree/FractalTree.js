@@ -28,6 +28,10 @@ const FractalTree = (ft) => {
     });
   };
 
+  ft.download = () => {
+    ft.saveCanvas('TreeFractal', 'png');
+  }
+
   class Branch {
     constructor(ft, start, end, angle) {
       this.ft = ft;

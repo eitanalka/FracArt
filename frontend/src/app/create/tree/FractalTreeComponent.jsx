@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { ChromePicker } from 'react-color';
 import FractalTree from './FractalTree';
+import { Button } from '../../common';
 
 const FractalTreeWrapper = styled.div`
   display: flex;
@@ -18,6 +19,11 @@ const Title = styled.h1`
 
 const Canvas = styled.div`
   margin: auto;
+`;
+
+const ButtonWrapper = styled(Button)`
+  margin: auto;
+  margin-top: 1rem;
 `;
 
 const Settings = styled.div`
@@ -112,6 +118,10 @@ class FractalTreeComponent extends Component {
     this.fractalTree.props = this.state;
   }
 
+  onDownloadClick = () => {
+    this.fractalTree.download();
+  }
+
   onAngleChange = event => {
     const angle = Number(event.target.value);
     this.setState(() => ({ angle }));
@@ -169,6 +179,7 @@ class FractalTreeComponent extends Component {
       <FractalTreeWrapper>
         <Title>Fractal Tree</Title>
         <Canvas id="canvas-container" />
+        <ButtonWrapper onClick={this.onDownloadClick}>Download</ButtonWrapper>
         <Settings>
           <SettingsTitle>Settings:</SettingsTitle>
 

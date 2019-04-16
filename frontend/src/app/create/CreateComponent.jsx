@@ -25,7 +25,7 @@ const FractalTypeContentWrapper = styled.div`
 
 const FractalTypeItem = styled(Link)`
   align-items: center;
-  background: #191919;
+  background: ${props => props.theme.secondary};
   border-radius: 7px;
   color: white;
   display: flex;
@@ -40,7 +40,7 @@ const FractalTypeItem = styled(Link)`
   }
 `;
 
-const CreateComponent = props => (
+const CreateComponent = () => (
   <CreateWrapper>
     <CreateTitle>
       Select a Fractal Type
