@@ -26,6 +26,7 @@ const Settings = styled.div`
   margin: auto;
   margin-bottom: 3rem;
   max-width: 40rem;
+  padding: 0 2rem 0 2rem;
   width: 100%;
 `;
 
