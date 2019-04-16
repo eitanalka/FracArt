@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { ChromePicker } from 'react-color';
 import FractalTree from './FractalTree';
 
 const FractalTreeWrapper = styled.div`
@@ -23,6 +24,7 @@ const Settings = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
+  margin-bottom: 3rem;
   max-width: 40rem;
   width: 100%;
 `;
@@ -52,6 +54,35 @@ const SettingValue = styled.p`
   font-size: 2rem;
 `;
 
+const SwatchWrapper = styled.div`
+  background: #fff;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px;
+  margin-top: 1rem;
+`;
+
+const Swatch = styled.div`
+  border-radius: 2px;
+  height: 14px;
+  width: 36px;
+`;
+
+const Popover = styled.div`
+  position: absolute;
+  z-index: 2;
+`;
+
+const Cover = styled.div`
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+`;
+
 class FractalTreeComponent extends Component {
   constructor(props) {
     super(props);
@@ -61,6 +92,10 @@ class FractalTreeComponent extends Component {
       levels: 3,
       length: 100,
       thickness: 1,
+      backgroundColor: '#545454',
+      displayBackgroundColorPicker: false,
+      treeColor: '#fff',
+      displayTreeColorPicker: false,
     }
   }
   componentDidMount() {
@@ -96,6 +131,38 @@ class FractalTreeComponent extends Component {
     this.setState(() => ({ thickness }));
   }
 
+  onBackgroundColorPickerClick = () => {
+    this.setState(() => ({
+      displayBackgroundColorPicker: !this.state.displayBackgroundColorPicker,
+    }));
+  }
+
+  onBackgroundColorPickerClose = () => {
+    this.setState(() => ({
+      displayBackgroundColorPicker: false,
+    }));
+  }
+
+  onBackgroundColorChange = color => {
+    this.setState({ backgroundColor: color.hex });
+  }
+  
+  onTreeColorPickerClick = () => {
+    this.setState(() => ({
+      displayTreeColorPicker: !this.state.displayTreeColorPicker,
+    }));
+  }
+
+  onTreeColorPickerClose = () => {
+    this.setState(() => ({
+      displayTreeColorPicker: false,
+    }));
+  }
+
+  onTreeColorChange = color => {
+    this.setState({ treeColor: color.hex });
+  }
+
   render() {
     return (
       <FractalTreeWrapper>
@@ -103,6 +170,38 @@ class FractalTreeComponent extends Component {
         <Canvas id="canvas-container" />
         <Settings>
           <SettingsTitle>Settings:</SettingsTitle>
+
+          <SettingTitle>Background Color:</SettingTitle>
+          <div>
+            <SwatchWrapper onClick={this.onBackgroundColorPickerClick}>
+              <Swatch style={{background: this.state.backgroundColor}}/>
+            </SwatchWrapper>
+            {this.state.displayBackgroundColorPicker && (
+              <Popover>
+                <Cover onClick={this.onBackgroundColorPickerClose}/>
+                <ChromePicker
+                  color={this.state.backgroundColor}
+                  onChange={this.onBackgroundColorChange}
+                />
+              </Popover>
+            )}
+          </div>
+          
+          <SettingTitle>Tree Color:</SettingTitle>
+          <div>
+            <SwatchWrapper onClick={this.onTreeColorPickerClick}>
+              <Swatch style={{background: this.state.treeColor}}/>
+            </SwatchWrapper>
+            {this.state.displayTreeColorPicker && (
+              <Popover>
+                <Cover onClick={this.onTreeColorPickerClose}/>
+                <ChromePicker
+                  color={this.state.treeColor}
+                  onChange={this.onTreeColorChange}
+                />
+              </Popover>
+            )}
+          </div>
 
           <SettingTitle>Angle:</SettingTitle>
           <SettingInputWrapper>
@@ -155,7 +254,6 @@ class FractalTreeComponent extends Component {
             />
             <SettingValue>{this.state.thickness}</SettingValue>
           </SettingInputWrapper>
-
         </Settings>
       </FractalTreeWrapper>
     )

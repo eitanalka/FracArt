@@ -7,7 +7,7 @@ const FractalTree = (ft) => {
   };
 
   ft.draw = () => {
-    ft.background(51);
+    ft.background(ft.props.backgroundColor);
     const start = ft.createVector(ft.width / 2, ft.height);
     const end = ft.createVector(ft.width / 2, ft.height - ft.props.length);
     const root = new Branch(ft, start, end, ft.props.angle);
@@ -38,7 +38,7 @@ const FractalTree = (ft) => {
   
     show = () => {
       this.ft.strokeWeight(this.ft.props.thickness);
-      this.ft.stroke(255);
+      this.ft.stroke(ft.props.treeColor);
       this.ft.line(this.start.x, this.start.y, this.end.x, this.end.y);
     };
   
