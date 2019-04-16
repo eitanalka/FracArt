@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from '../theme/globalStyle';
 import theme from '../theme/theme';
@@ -10,12 +10,9 @@ import { authOperations } from './duck';
 import { Particles } from './common';
 import Home from './home';
 import Create from './create';
+import Tree from './create/tree';
 
 export const history = createBrowserHistory();
-
-const RoutesWrapper = styled.div`
-  position: absolute,
-`;
 
 class App extends Component {
   componentDidMount() {
@@ -31,12 +28,11 @@ class App extends Component {
           <GlobalStyle />
           <Router history={history}>
             <Particles />
-            <RoutesWrapper>
-              {googleSignInRequestSent && (
-                <Route exact path="/" component={isLoggedIn ? Create : Home} />
-              )}
-              <Route path="/create" component={Create} />
-            </RoutesWrapper>
+            {googleSignInRequestSent && (
+              <Route exact path="/" component={isLoggedIn ? Create : Home} />
+            )}
+            <Route exact path="/create" component={Create} />
+            <Route path="/create/tree" component={Tree} />
           </Router>
         </React.Fragment>
       </ThemeProvider>

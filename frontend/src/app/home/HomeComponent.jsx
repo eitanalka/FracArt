@@ -9,7 +9,6 @@ import { validateUsername } from '../../utils/validators';
 
 const HomeWrapper = styled.div`
   align-items: center;
-  background: ${props => props.theme.background};
   display: flex;
   height: 100vh;
   justify-content: center;
