@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { ChromePicker } from 'react-color';
 import FractalTree from './FractalTree';
-import { Button } from '../../common';
+import { Button, ButtonSecondary, SaveModal } from '../../common';
 
 const FractalTreeWrapper = styled.div`
   display: flex;
@@ -26,6 +26,11 @@ const ButtonWrapper = styled(Button)`
   margin-top: 1rem;
 `;
 
+const ButtonSecondaryWrapper = styled(ButtonSecondary)`
+  margin: auto;
+  margin-top: 1rem;
+`;
+
 const Settings = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,6 +50,7 @@ const SettingsTitle = styled.h2`
 const SettingTitle = styled.h3`
   font-size: 2rem;
   margin-bottom: 0;
+  margin-top: 1rem;
 `;
 
 const SettingInputWrapper = styled.div`
@@ -103,8 +109,10 @@ class FractalTreeComponent extends Component {
       displayBackgroundColorPicker: false,
       treeColor: '#fff',
       displayTreeColorPicker: false,
+      modalIsOpen: false,
     }
   }
+
   componentDidMount() {
     this.fractalTree = new window.p5(FractalTree, 'canvas-container');
     this.fractalTree.props = this.state;
@@ -120,6 +128,14 @@ class FractalTreeComponent extends Component {
 
   onDownloadClick = () => {
     this.fractalTree.download();
+  }
+
+  openModal = () => {
+    this.setState(() => ({ modalIsOpen: true }));
+  };
+
+  closeModal = () => {
+    this.setState(() => ({ modalIsOpen: false }));
   }
 
   onAngleChange = event => {
@@ -180,6 +196,12 @@ class FractalTreeComponent extends Component {
         <Title>Fractal Tree</Title>
         <Canvas id="canvas-container" />
         <ButtonWrapper onClick={this.onDownloadClick}>Download</ButtonWrapper>
+        <ButtonSecondaryWrapper onClick={this.openModal}>Save to Profile</ButtonSecondaryWrapper>
+        <SaveModal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          contentlabel="Save Fractal"
+        />
         <Settings>
           <SettingsTitle>Settings:</SettingsTitle>
 
