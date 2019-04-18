@@ -1,6 +1,12 @@
 exports.up = pgm => {
   pgm.createTable('fractal', {
     id: 'id',
+    owner_id: {
+      type: 'int',
+      notNull: true,
+      references: '"user"',
+      onDelete: 'cascade'
+    },
     title: {
       type: 'varchar(50)',
       notNull: true
