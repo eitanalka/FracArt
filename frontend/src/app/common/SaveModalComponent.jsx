@@ -25,8 +25,15 @@ class SaveModalComponent extends Component {
   onSubmit = event => {
     event.preventDefault();
 
-    const title = this.state;
+    const { title }= this.state;
 
+    if(title.length > 50) {
+      return this.setState(() => ({
+        error: 'Title must be at most 50 characters.'
+      }));
+    }
+
+    this.setState(() => ({ error: '' }));
   }
   
   render() {
