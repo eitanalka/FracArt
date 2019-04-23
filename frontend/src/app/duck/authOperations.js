@@ -20,6 +20,12 @@ const googleSignIn = googleToken => {
   }
 };
 
+const googleSignOut = () => dispatch => {
+  console.log('signout');
+  localStorage.setItem('googleToken', '');
+  dispatch(actions.googleSignOut());
+}
+
 const createUsername = (googleToken, username) => {
   return async dispatch => {
     try {
@@ -41,6 +47,7 @@ const resetUsernameRequest = () => dispatch =>
 
 export default {
   googleSignIn,
+  googleSignOut,
   createUsername,
   resetUsernameRequest,
 }

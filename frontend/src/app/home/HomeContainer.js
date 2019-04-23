@@ -4,6 +4,7 @@ import { authOperations } from '../duck';
 
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isLoggedIn,
+  isLoggedOut: state.auth.isLoggedOut,
   hasUsername: state.auth.hasUsername,
   unauthorized: state.auth.unauthorized,
   createdUsername: state.auth.createdUsername,

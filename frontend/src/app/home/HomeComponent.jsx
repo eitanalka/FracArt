@@ -8,7 +8,7 @@ import { Form, FormInput, FormError } from '../common';
 import { validateUsername } from '../../utils/validators';
 
 const HomeWrapper = styled.div`
-  align-items: center;
+  margin-top: 25%;
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -120,7 +120,7 @@ class HomeComponent extends Component {
           Create, share, and explore stunning fractals
         </HomeSubtitle>
         <StyledGoogleSignIn
-          clientId="487573911432-js1d59ujj2m6q1o4cvbpi9i0phkjav05.apps.googleusercontent.com"
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           buttonText="Sign in with Google"
           onSuccess={this.onGoogleSignInSuccess}
           onFailure={this.onGoogleSignInFail}
@@ -148,13 +148,13 @@ class HomeComponent extends Component {
   );
 
   render() {
-    const { hasUsername, unauthorized } = this.props;
+    const { hasUsername, unauthorized, isLoggedOut } = this.props;
 
     return (
       <HomeWrapper>
         <HomeDialog>
-          {unauthorized && <this.LoginDialog />}
-          {!hasUsername && !unauthorized && <this.CreateUsernameDialog />}
+          {(unauthorized || isLoggedOut) && <this.LoginDialog />}
+          {!hasUsername && !unauthorized && !isLoggedOut && <this.CreateUsernameDialog />}
         </HomeDialog>
       </HomeWrapper>
     );

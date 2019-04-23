@@ -3,6 +3,7 @@ import types from './authTypes';
 const initialState = {
   googleToken: '',
   isLoggedIn: false,
+  isLoggedOut: false,
   hasUsername: false,
   googleSignInRequestSent: false,
   unauthorized: false,
@@ -17,8 +18,14 @@ const authReducer = (state = initialState, action) => {
         ...initialState,
         googleToken: action.googleToken,
         isLoggedIn: true,
+        isLoggedOut: false,
         hasUsername: true,
         googleSignInRequestSent: true,
+      }
+    case types.GOOGLE_SIGN_OUT:
+      return {
+        ...initialState,
+        isLoggedOut: true,
       }
     case types.UNAUTHORIZED:
       return {

@@ -2,17 +2,21 @@ import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from '../theme/globalStyle';
 import theme from '../theme/theme';
 import { authOperations } from './duck';
-import { Particles } from './common';
+import { Particles, Header } from './common';
 import Home from './home';
 import Create from './create';
 import Tree from './create/tree';
 
 export const history = createBrowserHistory();
+
+const RoutesWrapper = styled.div`
+  position: absolute;
+`;
 
 class App extends Component {
   componentDidMount() {
@@ -21,19 +25,22 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn, googleSignInRequestSent } = this.props;
+    const { isLoggedIn, googleSignInRequestSent, isLoggedOut } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
           <GlobalStyle />
           <Router history={history}>
             <Particles />
-            {googleSignInRequestSent && (
-              <Route exact path="/" component={isLoggedIn ? Create : Home} />
-            )}
-            <Route exact path="/create" component={Create} />
-            <Route exact path="/create/tree" component={Tree} />
-            <Route exact path="/create/tree/:id" component={Tree} />
+            <RoutesWrapper>
+              <Header history={history}/>
+              {(googleSignInRequestSent || isLoggedOut) && (
+                <Route exact path="/" component={isLoggedIn ? Create : Home} />
+              )}
+              <Route exact path="/create" component={Create} />
+              <Route exact path="/create/tree" component={Tree} />
+              <Route exact path="/create/tree/:id" component={Tree} />
+            </RoutesWrapper>
           </Router>
         </React.Fragment>
       </ThemeProvider>
@@ -43,6 +50,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   isLoggedIn: state.auth.isLoggedIn,
+  isLoggedOut: state.auth.isLoggedOut,
   googleSignInRequestSent: state.auth.googleSignInRequestSent,
 });
 
