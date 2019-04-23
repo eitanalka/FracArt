@@ -17,6 +17,7 @@ const requireGoogle = async (req, res, next) => {
     // check to see if user has been created and has username
     const user = await db.user.findOne({ google_id: payload.sub });
     if (user && user.username) {
+      payload.username = user.username;
       req.googlePayload = payload;
       return next();
     }

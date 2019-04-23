@@ -1,8 +1,9 @@
 import types from './authTypes';
 
-const googleSignIn = googleToken => ({
+const googleSignIn = ({googleToken, username}) => ({
   type: types.GOOGLE_SIGN_IN,
-  googleToken
+  googleToken,
+  username,
 });
 
 const googleSignOut = () => ({

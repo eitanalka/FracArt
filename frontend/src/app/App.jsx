@@ -9,6 +9,7 @@ import theme from '../theme/theme';
 import { authOperations } from './duck';
 import { Particles, Header } from './common';
 import Home from './home';
+import Profile from './profile';
 import Create from './create';
 import Tree from './create/tree';
 
@@ -37,6 +38,7 @@ class App extends Component {
               {(googleSignInRequestSent || isLoggedOut) && (
                 <Route exact path="/" component={isLoggedIn ? Create : Home} />
               )}
+              <Route exact path="/profile" component={isLoggedIn ? Profile : Home} />
               <Route exact path="/create" component={Create} />
               <Route exact path="/create/tree" component={Tree} />
               <Route exact path="/create/tree/:id" component={Tree} />

@@ -2,6 +2,7 @@ import types from './authTypes';
 
 const initialState = {
   googleToken: '',
+  username: '',
   isLoggedIn: false,
   isLoggedOut: false,
   hasUsername: false,
@@ -17,6 +18,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...initialState,
         googleToken: action.googleToken,
+        username: action.username,
         isLoggedIn: true,
         isLoggedOut: false,
         hasUsername: true,

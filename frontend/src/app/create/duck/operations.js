@@ -5,7 +5,7 @@ import { history } from '../../App';
 const saveFractal = (googleToken, title, settings) => {
   return async dispatch => {
     try {
-      let response = await axios.post(`${process.env.REACT_APP_API_URL}/fractal/`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/fractal/`, {
         title,
         settings,
       }, {

@@ -23,7 +23,8 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)`
   color: white;
-  font-size: 3rem;
+  font-size: 4.5rem;
+  font-weight: bold;
   text-decoration: none;
 `;
 
@@ -32,7 +33,20 @@ const StyledGoogleSignIn = styled(GoogleSignIn)`
   font-size: 2rem !important;
 `;
 
-const HeaderItem = styled.h1`
+const HeaderItemsWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+`;
+
+const HeaderItem = styled(Link)`
+  color: white;
+  font-size: 3rem;
+  text-decoration: none;
+  margin-right: 3rem;
+`;
+
+const SignOut = styled.p`
   color: white;
   cursor: pointer;
   font-size: 3rem;
@@ -69,7 +83,10 @@ class HeaderComponent extends React.Component {
               onFailure={this.onGoogleSignInFail}
             />
           ) : (
-            <HeaderItem onClick={this.signout}>Sign Out</HeaderItem>
+            <HeaderItemsWrapper>
+              <HeaderItem to="/profile">Profile</HeaderItem>
+              <SignOut onClick={this.signout}>Sign Out</SignOut>
+            </HeaderItemsWrapper>
           )}
         </Container>
       </HeaderWrapper>

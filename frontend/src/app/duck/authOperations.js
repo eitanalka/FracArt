@@ -5,10 +5,13 @@ const googleSignIn = googleToken => {
   return async dispatch => {
     try {
       localStorage.setItem('googleToken', googleToken);
-      await axios.post(`${process.env.REACT_APP_API_URL}/auth/google-signin`, {}, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/google-signin`, {}, {
         headers: { Authorization: googleToken }
       });
-      return dispatch(actions.googleSignIn(googleToken));
+      return dispatch(actions.googleSignIn({
+        googleToken,
+        username: response.data.username,
+      }));
     } catch (error) {
       if (((error || {}).response || {}).status === 403) {
         return dispatch(actions.noUsername());
@@ -21,7 +24,6 @@ const googleSignIn = googleToken => {
 };
 
 const googleSignOut = () => dispatch => {
-  console.log('signout');
   localStorage.setItem('googleToken', '');
   dispatch(actions.googleSignOut());
 }

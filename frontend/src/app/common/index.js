@@ -4,6 +4,7 @@ export { default as FormInput } from './FormInputComponent';
 export { default as FormError } from './FormErrorComponent';
 export { default as Particles } from './ParticlesComponent';
 export { default as Button } from './ButtonComponent';
+export { default as FractalItem } from './FractalItemComponent';
 export { ButtonSecondary } from './ButtonComponent';
 export { default as Modal } from './ModalComponent';
 export { default as SaveModal } from './SaveModalComponent';
