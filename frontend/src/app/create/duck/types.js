@@ -1,0 +1,5 @@
+const GET_FRACTAL_SUCCESS = 'GET_FRACTAL_SUCCESS';
+
+export default {
+  GET_FRACTAL_SUCCESS,
+};

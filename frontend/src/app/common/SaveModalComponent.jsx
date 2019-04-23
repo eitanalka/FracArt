@@ -32,8 +32,11 @@ class SaveModalComponent extends Component {
         error: 'Title must be at most 50 characters.'
       }));
     }
-
     this.setState(() => ({ error: '' }));
+    
+    const { googleToken, settings } = this.props;
+    this.props.saveFractal(googleToken, title, settings);
+    this.props.onRequestClose();
   }
   
   render() {

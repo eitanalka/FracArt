@@ -14,10 +14,10 @@ const saveFractal = async (req, res) => {
     title,
     settings,
   }, {
-    fields: ['title', 'settings'],
+    fields: ['id', 'title', 'settings'],
   });
 
-  return res.json(fractal);
+  return res.status(200).json(fractal);
 };
 
 export default saveFractal;

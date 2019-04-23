@@ -5,6 +5,7 @@ import fractalController from './controller';
 
 const fractal = express.Router();
 
+fractal.get('/:id', asyncHandler(fractalController.getFractal));
 fractal.post('/', requireGoogle, asyncHandler(fractalController.saveFractal));
 
 export default fractal;

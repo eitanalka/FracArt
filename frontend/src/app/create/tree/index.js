@@ -1,2 +1,2 @@
-import FractalTreeComponent from './FractalTreeComponent.jsx';
-export default FractalTreeComponent;
+import FractalTreeContainer from './FractalTreeContainer';
+export default FractalTreeContainer;

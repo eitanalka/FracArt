@@ -32,7 +32,8 @@ class App extends Component {
               <Route exact path="/" component={isLoggedIn ? Create : Home} />
             )}
             <Route exact path="/create" component={Create} />
-            <Route path="/create/tree" component={Tree} />
+            <Route exact path="/create/tree" component={Tree} />
+            <Route exact path="/create/tree/:id" component={Tree} />
           </Router>
         </React.Fragment>
       </ThemeProvider>

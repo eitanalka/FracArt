@@ -17,6 +17,12 @@ const Title = styled.h1`
   text-align: center;
 `;
 
+const Subtitle = styled.h2`
+  font-size: 3rem;
+  margin-top: 0;
+  text-align: center;
+`;
+
 const Canvas = styled.div`
   margin: auto;
 `;
@@ -101,21 +107,28 @@ class FractalTreeComponent extends Component {
     super(props);
 
     this.state = {
-      angle: Math.round(Math.PI / 6 * 100)/100,
-      levels: 3,
-      length: 100,
-      thickness: 1,
-      backgroundColor: '#545454',
+      settings: {
+        angle: Math.round(Math.PI / 6 * 100)/100,
+        levels: 3,
+        length: 100,
+        thickness: 1,
+        backgroundColor: '#545454',
+        treeColor: '#fff',
+      },
       displayBackgroundColorPicker: false,
-      treeColor: '#fff',
       displayTreeColorPicker: false,
       modalIsOpen: false,
+      didUpdateSettings: false,
     }
   }
 
   componentDidMount() {
+    const { id } = this.props.match.params;
+    if(id) {
+      this.props.getFractal(id);
+    }
     this.fractalTree = new window.p5(FractalTree, 'canvas-container');
-    this.fractalTree.props = this.state;
+    this.fractalTree.props = this.state.settings;
   }
   
   componentWillUnmount() {
@@ -123,7 +136,11 @@ class FractalTreeComponent extends Component {
   }
 
   componentDidUpdate() {
-    this.fractalTree.props = this.state;
+    const { settings } = this.props;
+    if(Object.keys(settings).length && !this.state.didUpdateSettings) {
+      this.setState(() => ({ settings, didUpdateSettings: true }));
+    }
+    this.fractalTree.props = this.state.settings;
   }
 
   onDownloadClick = () => {
@@ -140,21 +157,29 @@ class FractalTreeComponent extends Component {
 
   onAngleChange = event => {
     const angle = Number(event.target.value);
-    this.setState(() => ({ angle }));
+    const { settings } = this.state
+    settings.angle = angle;
+    this.setState(() => ({ settings }));
   };
 
   onLevelsChange = event => {
     const levels = event.target.value;
-    this.setState(() => ({ levels }));
+    const { settings } = this.state;
+    settings.levels = levels;
+    this.setState(() => ({ settings }));
   }
 
   onLengthChange = event => {
     const length = event.target.value;
-    this.setState(() => ({ length }));
+    const { settings } = this.state;
+    settings.length = length;
+    this.setState(() => ({ settings }));
   }
 
   onThicknessChange = event => {
     const thickness = event.target.value;
+    const { settings } = this.state;
+    settings.thickness = thickness; 
     this.setState(() => ({ thickness }));
   }
 
@@ -171,7 +196,9 @@ class FractalTreeComponent extends Component {
   }
 
   onBackgroundColorChange = color => {
-    this.setState({ backgroundColor: color.hex });
+    const { settings } = this.state;
+    settings.backgroundColor = color.hex; 
+    this.setState({ settings });
   }
   
   onTreeColorPickerClick = () => {
@@ -187,13 +214,16 @@ class FractalTreeComponent extends Component {
   }
 
   onTreeColorChange = color => {
-    this.setState({ treeColor: color.hex });
+    const { settings } = this.state;
+    settings.treeColor = color.hex; 
+    this.setState({ settings });
   }
 
   render() {
     return (
       <FractalTreeWrapper>
         <Title>Fractal Tree</Title>
+        <Subtitle>{this.props.title}</Subtitle>
         <Canvas id="canvas-container" />
         <ButtonWrapper onClick={this.onDownloadClick}>Download</ButtonWrapper>
         <ButtonSecondaryWrapper onClick={this.openModal}>Save to Profile</ButtonSecondaryWrapper>
@@ -201,6 +231,9 @@ class FractalTreeComponent extends Component {
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
           contentlabel="Save Fractal"
+          saveFractal={this.props.saveFractal}
+          settings={this.state.settings}
+          googleToken={this.props.googleToken}
         />
         <Settings>
           <SettingsTitle>Settings:</SettingsTitle>
@@ -208,13 +241,13 @@ class FractalTreeComponent extends Component {
           <SettingTitle>Background Color:</SettingTitle>
           <div>
             <SwatchWrapper onClick={this.onBackgroundColorPickerClick}>
-              <Swatch style={{background: this.state.backgroundColor}}/>
+              <Swatch style={{background: this.state.settings.backgroundColor}}/>
             </SwatchWrapper>
             {this.state.displayBackgroundColorPicker && (
               <Popover>
                 <Cover onClick={this.onBackgroundColorPickerClose}/>
                 <ChromePicker
-                  color={this.state.backgroundColor}
+                  color={this.state.settings.backgroundColor}
                   onChange={this.onBackgroundColorChange}
                 />
               </Popover>
@@ -224,13 +257,13 @@ class FractalTreeComponent extends Component {
           <SettingTitle>Tree Color:</SettingTitle>
           <div>
             <SwatchWrapper onClick={this.onTreeColorPickerClick}>
-              <Swatch style={{background: this.state.treeColor}}/>
+              <Swatch style={{background: this.state.settings.treeColor}}/>
             </SwatchWrapper>
             {this.state.displayTreeColorPicker && (
               <Popover>
                 <Cover onClick={this.onTreeColorPickerClose}/>
                 <ChromePicker
-                  color={this.state.treeColor}
+                  color={this.state.settings.treeColor}
                   onChange={this.onTreeColorChange}
                 />
               </Popover>
@@ -244,10 +277,10 @@ class FractalTreeComponent extends Component {
               type="range"
               min={0}
               max={2 * Math.PI}
-              value={this.state.angle}
+              value={this.state.settings.angle}
               step={0.01}
             />
-            <SettingValue>{Math.round(this.state.angle * 180 / Math.PI)}&deg;</SettingValue>
+            <SettingValue>{Math.round(this.state.settings.angle * 180 / Math.PI)}&deg;</SettingValue>
           </SettingInputWrapper>
           
           <SettingTitle>Levels:</SettingTitle>
@@ -257,10 +290,10 @@ class FractalTreeComponent extends Component {
               type="range"
               min={1}
               max={8}
-              value={this.state.levels}
+              value={this.state.settings.levels}
               step={1}
             />
-            <SettingValue>{this.state.levels}</SettingValue>
+            <SettingValue>{this.state.settings.levels}</SettingValue>
           </SettingInputWrapper>
 
           <SettingTitle>Length:</SettingTitle>
@@ -270,10 +303,10 @@ class FractalTreeComponent extends Component {
               type="range"
               min={100}
               max={500}
-              value={this.state.length}
+              value={this.state.settings.length}
               step={5}
             />
-            <SettingValue>{this.state.length}</SettingValue>
+            <SettingValue>{this.state.settings.length}</SettingValue>
           </SettingInputWrapper>
 
           <SettingTitle>Thickness:</SettingTitle>
@@ -283,10 +316,10 @@ class FractalTreeComponent extends Component {
               type="range"
               min={1}
               max={10}
-              value={this.state.thickness}
+              value={this.state.settings.thickness}
               step={1}
             />
-            <SettingValue>{this.state.thickness}</SettingValue>
+            <SettingValue>{this.state.settings.thickness}</SettingValue>
           </SettingInputWrapper>
         </Settings>
       </FractalTreeWrapper>

@@ -20,7 +20,7 @@ const googleSignIn = googleToken => {
   }
 };
 
-const createUsername = (username, googleToken) => {
+const createUsername = (googleToken, username) => {
   return async dispatch => {
     try {
       axios.patch(`${process.env.REACT_APP_API_URL}/user/username`, {

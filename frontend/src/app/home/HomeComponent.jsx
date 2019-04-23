@@ -110,7 +110,7 @@ class HomeComponent extends Component {
 
     this.setState(() => ({ error: '' }));
 
-    this.props.createUsername(username, this.state.googleToken);
+    this.props.createUsername(this.state.googleToken, username);
   };
   
   LoginDialog = () => (
