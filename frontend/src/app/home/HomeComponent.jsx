@@ -83,7 +83,8 @@ class HomeComponent extends Component {
     this.props.googleSignIn(googleToken);
   };
 
-  onGoogleSignInFail = () => {
+  onGoogleSignInFail = response => {
+    console.log(response);
     return; 
   };
 

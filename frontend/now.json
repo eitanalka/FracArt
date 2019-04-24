@@ -31,6 +31,7 @@
     }
   ],
   "env": {
-    "REACT_APP_API_URL": "http://localhost:3001"
+    "REACT_APP_API_URL": "http://localhost:3001",
+    "REACT_APP_GOOGLE_CLIENT_ID": "487573911432-65h2kcad7upluanr4bkl9vg7e31s5g68.apps.googleusercontent.com"
   }
 }
