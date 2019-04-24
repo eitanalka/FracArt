@@ -13,6 +13,16 @@ const createReducer = (state = initialState, action) => {
         title: action.title,
         settings: action.settings,
       }
+    case types.SAVE_FRACTAL_SUCCESS:
+      return {
+        ...initialState,
+        title: action.title,
+        settings: action.settings,
+      }
+    case types.RESET_SETTINGS:
+      return {
+        initialState,
+      }
     default:
       return state;
   }

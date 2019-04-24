@@ -2,23 +2,6 @@ import axios from 'axios';
 import actions from './actions';
 import { history } from '../../App';
 
-const saveFractal = (googleToken, title, settings) => {
-  return async dispatch => {
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/fractal/`, {
-        title,
-        settings,
-      }, {
-        headers: { Authorization: googleToken }
-      });
-      history.push(`/create/tree/${response.data.id}`);
-    } catch (error) {
-      console.log(error);
-      // error handling here
-    }
-  }
-};
-
 const getFractal = id => {
   return async dispatch => {
     try {
@@ -30,7 +13,29 @@ const getFractal = id => {
   }
 }
 
+const saveFractal = (googleToken, title, settings) => {
+  return async dispatch => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/fractal/`, {
+        title,
+        settings,
+      }, {
+        headers: { Authorization: googleToken }
+      });
+      dispatch(actions.saveFractalSuccess(response.data));
+      history.push(`/create/tree/${response.data.id}`);
+    } catch (error) {
+      console.log(error);
+      // error handling here
+    }
+  }
+};
+
+const resetSettings = () => dispatch =>
+  dispatch(actions.resetSettings());
+
 export default {
   saveFractal,
   getFractal,
+  resetSettings,
 };
