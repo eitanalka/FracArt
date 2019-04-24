@@ -12,6 +12,7 @@ import Home from './home';
 import Profile from './profile';
 import Create from './create';
 import Tree from './create/tree';
+import Mandelbrot from './create/mandelbrot';
 
 export const history = createBrowserHistory();
 
@@ -42,6 +43,8 @@ class App extends Component {
               <Route exact path="/create" component={Create} />
               <Route exact path="/create/tree" component={Tree} />
               <Route exact path="/create/tree/:id" component={Tree} />
+              <Route exact path="/create/mandelbrot" component={Mandelbrot} />
+              <Route exact path="/create/mandelbrot/:id" component={Mandelbrot} />
             </RoutesWrapper>
           </Router>
         </React.Fragment>

@@ -139,7 +139,7 @@ class FractalTreeComponent extends Component {
 
   componentDidUpdate() {
     const { settings } = this.props;
-    if(Object.keys(settings).length && !this.state.didUpdateSettings) {
+    if(settings && Object.keys(settings).length && !this.state.didUpdateSettings) {
       this.setState(() => ({ settings, didUpdateSettings: true }));
     }
     this.fractalTree.props = this.state.settings;
@@ -228,15 +228,19 @@ class FractalTreeComponent extends Component {
         <Subtitle>{this.props.title}</Subtitle>
         <Canvas id="canvas-container" />
         <ButtonWrapper onClick={this.onDownloadClick}>Download</ButtonWrapper>
-        <ButtonSecondaryWrapper onClick={this.openModal}>Save to Profile</ButtonSecondaryWrapper>
-        <SaveModal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          contentlabel="Save Fractal"
-          saveFractal={this.props.saveFractal}
-          settings={this.state.settings}
-          googleToken={this.props.googleToken}
-        />
+        {this.props.isLoggedIn && (
+          <React.Fragment>
+            <ButtonSecondaryWrapper onClick={this.openModal}>Save to Profile</ButtonSecondaryWrapper>
+            <SaveModal
+              isOpen={this.state.modalIsOpen}
+              onRequestClose={this.closeModal}
+              contentlabel="Save Fractal"
+              saveFractal={this.props.saveFractal}
+              settings={this.state.settings}
+              googleToken={this.props.googleToken}
+            />
+          </React.Fragment>
+        )}
         <Settings>
           <SettingsTitle>Settings:</SettingsTitle>
 

@@ -34,6 +34,9 @@ const CreateComponent = () => (
       <FractalItem to="/create/tree">
         Tree
       </FractalItem>
+      <FractalItem to="/create/mandelbrot">
+        Mandelbrot
+      </FractalItem>
     </FractalTypeContentWrapper>
   </CreateWrapper>
 );

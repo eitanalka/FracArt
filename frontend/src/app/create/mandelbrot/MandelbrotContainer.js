@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import FractalTreeComponent from './FractalTreeComponent';
+import MandelbrotComponent from './MandelbrotComponent';
 import { createOperations } from '../duck';
 
 const mapStateToProps = state => ({
@@ -21,6 +21,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const FractalTreeContainer = connect(mapStateToProps, mapDispatchToProps)(FractalTreeComponent);
+const MandelbrotContainer = connect(mapStateToProps, mapDispatchToProps)(MandelbrotComponent);
 
-export default FractalTreeContainer;
+export default MandelbrotContainer;

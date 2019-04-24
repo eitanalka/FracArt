@@ -16,7 +16,6 @@ const FractalItemComponent = styled(Link)`
   text-decoration: none;
   width: 22rem;
   word-wrap: break-word;
-  word-break: break-all;
   &:hover {
     cursor: pointer;
     box-shadow: 0 1px 5px 1px rgba(255, 255, 255, 0.1); 

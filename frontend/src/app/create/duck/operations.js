@@ -23,7 +23,7 @@ const saveFractal = (googleToken, title, settings) => {
         headers: { Authorization: googleToken }
       });
       dispatch(actions.saveFractalSuccess(response.data));
-      history.push(`/create/tree/${response.data.id}`);
+      history.push(`/create/${response.data.settings.type}/${response.data.id}`);
     } catch (error) {
       console.log(error);
       // error handling here

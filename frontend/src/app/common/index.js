@@ -8,3 +8,4 @@ export { default as FractalItem } from './FractalItemComponent';
 export { ButtonSecondary } from './ButtonComponent';
 export { default as Modal } from './ModalComponent';
 export { default as SaveModal } from './SaveModalComponent';
+export { default as ColorPicker } from './ColorPickerComponent';
