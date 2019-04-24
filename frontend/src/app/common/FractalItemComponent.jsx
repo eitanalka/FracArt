@@ -10,6 +10,7 @@ const FractalItemComponent = styled(Link)`
   font-size: 3rem;
   height: 22rem;
   justify-content: center;
+  margin-right: 3rem;
   margin-bottom: 3rem;
   padding: 1.5rem;
   text-decoration: none;

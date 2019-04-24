@@ -114,6 +114,7 @@ class FractalTreeComponent extends Component {
         thickness: 1,
         backgroundColor: '#545454',
         treeColor: '#fff',
+        type: 'tree',
       },
       displayBackgroundColorPicker: false,
       displayTreeColorPicker: false,
@@ -132,6 +133,7 @@ class FractalTreeComponent extends Component {
   }
   
   componentWillUnmount() {
+    this.props.resetSettings();
     this.fractalTree.remove();
   }
 

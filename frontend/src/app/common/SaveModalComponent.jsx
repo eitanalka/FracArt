@@ -51,6 +51,7 @@ class SaveModalComponent extends Component {
             placeholder="Title"
             value={this.state.title}
             onChange={this.onTitleChange}
+            autofocus
             required
           />
           <StyledButton>Save Fractal</StyledButton>

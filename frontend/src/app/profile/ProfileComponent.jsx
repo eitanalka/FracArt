@@ -37,7 +37,7 @@ class ProfileComponent extends Component {
         <ProfileTitle>Your Fractals</ProfileTitle>
         <FractalsContentWrapper>
           {this.props.fractals.map(fractal => (
-            <FractalItem key={fractal.id} to={`/create/tree/${fractal.id}`}>{fractal.title}</FractalItem>
+            <FractalItem key={fractal.id} to={`/create/${fractal.settings.type}/${fractal.id}`}>{fractal.title}</FractalItem>
           ))}
         </FractalsContentWrapper>
       </ProfileComponentWrapper>

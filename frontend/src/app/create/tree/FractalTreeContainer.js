@@ -14,6 +14,9 @@ const mapDispatchToProps = dispatch => ({
   },
   getFractal: id => {
     dispatch(createOperations.getFractal(id));
+  },
+  resetSettings: () => {
+    dispatch(createOperations.resetSettings());
   }
 });
 
