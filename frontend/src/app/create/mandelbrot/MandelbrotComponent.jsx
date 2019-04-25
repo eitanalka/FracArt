@@ -68,8 +68,9 @@ const SettingInput = styled.input`
   width: 80%;
 `;
 
-const SettingValue = styled.p`
+const SettingValue = styled.input`
   font-size: 2rem;
+  max-width: 10rem;
 `;
 
 class MandelbrotComponent extends Component {
@@ -253,7 +254,12 @@ class MandelbrotComponent extends Component {
               value={this.state.settings.iterations}
               step={1}
             />
-            <SettingValue>{this.state.settings.iterations}</SettingValue>
+            <SettingValue
+              type="number"
+              step={10}
+              onChange={this.onIterationsChange}
+              value={this.state.settings.iterations}
+            />
           </SettingInputWrapper>
           
           <SettingTitle>MinX:</SettingTitle>
@@ -266,7 +272,12 @@ class MandelbrotComponent extends Component {
               value={this.state.settings.minX}
               step={.001}
             />
-            <SettingValue>{this.state.settings.minX}</SettingValue>
+            <SettingValue
+              type="number"
+              step={.001}
+              onChange={this.onMinXChange}
+              value={this.state.settings.minX}
+            />
           </SettingInputWrapper>
           
           <SettingTitle>MaxX:</SettingTitle>
@@ -279,7 +290,12 @@ class MandelbrotComponent extends Component {
               value={this.state.settings.maxX}
               step={.001}
             />
-            <SettingValue>{this.state.settings.maxX}</SettingValue>
+            <SettingValue
+              type="number"
+              step={.001}
+              onChange={this.onMaxXChange}
+              value={this.state.settings.maxX}
+              />
           </SettingInputWrapper>
           
           <SettingTitle>MinY:</SettingTitle>
@@ -292,7 +308,12 @@ class MandelbrotComponent extends Component {
               value={this.state.settings.minY}
               step={.001}
             />
-            <SettingValue>{this.state.settings.minY}</SettingValue>
+            <SettingValue
+              type="number"
+              step={.001}
+              onChange={this.onMinYChange}
+              value={this.state.settings.minY}
+            />
           </SettingInputWrapper>
         </Settings>
       </MandelbrotWrapper>
