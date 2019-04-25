@@ -69,8 +69,9 @@ const SettingInput = styled.input`
 `;
 
 const SettingValue = styled.input`
-  font-size: 2rem;
+  font-size: 1.7rem;
   max-width: 10rem;
+  margin-left: 1rem;
 `;
 
 class MandelbrotComponent extends Component {
@@ -101,7 +102,7 @@ class MandelbrotComponent extends Component {
         ],
         mainColor: [0, 0, 0],
         mainColorHex: '#000000',
-        minX: -2.0,
+        minX: -2,
         maxX: 1.0,
         minY: -1.2,
         started: true,

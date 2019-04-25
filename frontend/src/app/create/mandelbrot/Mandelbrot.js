@@ -1,4 +1,7 @@
 const Mandelbrot = (mb = {}) => {
+  let xZoomStart = 0;
+  let xZoomEnd = 1000;
+  let yZoomStart = 0;
   mb.props = {
     colors: {},
   };
@@ -17,6 +20,7 @@ const Mandelbrot = (mb = {}) => {
       const maxX = mb.props.maxX;
       const minY = mb.props.minY;
       const maxY = minY+(maxX-minX)*mb.height/mb.width;
+      mb.props.maxY = maxY;
       for (let x = 0; x < mb.width; x++) {
         for (let y = 0; y < mb.height; y++) {
   
@@ -59,11 +63,30 @@ const Mandelbrot = (mb = {}) => {
     }
   };
 
+  mb.mousePressed = () => {
+    if(mb.mouseX >= 0 && mb.mouseX <= 1000 && mb.mouseY >= 0 && mb.mouseY <= 1000) {
+      xZoomStart = mb.mouseX;
+      yZoomStart = mb.mouseY;
+    }
+  }
+
+  mb.mouseReleased = () => {
+    if(mb.mouseX >= 0 && mb.mouseX <= 1000 && mb.mouseY >= 0 && mb.mouseY <= 1000) {
+      xZoomEnd = mb.mouseX;
+      const xScaleDist = mb.props.maxX - mb.props.minX;
+      const yScaleDist = mb.props.maxY - mb.props.minY;
+      const xScale = xScaleDist / mb.width;
+      const yScale = yScaleDist / mb.height;
+      mb.props.minX = mb.props.minX + xZoomStart * xScale;
+      mb.props.maxX = mb.props.minX + xZoomEnd * xScale;
+      mb.props.minY = mb.props.minY + yZoomStart * yScale;
+      mb.draw();
+    }
+  }
+
   mb.download = () => {
     mb.saveCanvas('Mandlebrot', 'png');
   }
-
-  
 };
 
 export default Mandelbrot;

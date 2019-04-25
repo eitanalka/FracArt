@@ -3,7 +3,7 @@ const FractalTree = (ft) => {
   ft.props = {};
 
   ft.setup = () => {
-    ft.createCanvas(400, 400);
+    ft.createCanvas(500, 500);
   };
 
   ft.draw = () => {
