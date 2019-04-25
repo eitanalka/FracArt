@@ -1,5 +1,4 @@
 const Mandelbrot = (mb = {}) => {
-  
   mb.props = {
     colors: {},
   };
@@ -11,15 +10,18 @@ const Mandelbrot = (mb = {}) => {
   };
 
   mb.draw = () => {
-    if(mb.props.started) {
-      const maxiterations = mb.props.iterations;
-  
+    if(mb.props.started && mb._setupDone) {
       mb.loadPixels();
+      const maxiterations = mb.props.iterations;
+      const minX = mb.props.minX;
+      const maxX = mb.props.maxX;
+      const minY = mb.props.minY;
+      const maxY = minY+(maxX-minX)*mb.height/mb.width;
       for (let x = 0; x < mb.width; x++) {
         for (let y = 0; y < mb.height; y++) {
   
-          let a = mb.map(x, 0, mb.width, -2, 2);
-          let b = mb.map(y, 0, mb.height, -2, 2);
+          let a = mb.map(x, 0, mb.width, minX, maxX);
+          let b = mb.map(y, 0, mb.height, minY, maxY);
   
           let ca = a;
           let cb = b;
@@ -33,7 +35,7 @@ const Mandelbrot = (mb = {}) => {
             a = newA + ca;
             b = newB + cb;
   
-            if (mb.abs(newA + newB) > 16) {
+            if (mb.abs(newA + newB) > 50) {
               break;
             }
             n++;

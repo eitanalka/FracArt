@@ -100,6 +100,9 @@ class MandelbrotComponent extends Component {
         ],
         mainColor: [0, 0, 0],
         mainColorHex: '#000000',
+        minX: -2.0,
+        maxX: 1.0,
+        minY: -1.2,
         started: true,
         iterations: 100,
         type: 'mandelbrot',
@@ -117,6 +120,7 @@ class MandelbrotComponent extends Component {
     }
     this.mandelbrot = new window.p5(Mandelbrot, 'canvas-container');
     this.mandelbrot.props = this.state.settings;
+    this.mandelbrot.draw();
   }
   
   componentWillUnmount() {
@@ -172,6 +176,25 @@ class MandelbrotComponent extends Component {
     const iterations = Number(event.target.value);
     const { settings } = this.state;
     settings.iterations = iterations;
+    this.setState(() => ({ settings }));
+  }
+  onMinXChange = event => {
+    const minX = Number(event.target.value);
+    const { settings } = this.state;
+    settings.minX = minX;
+    this.setState(() => ({ settings }));
+  }
+  onMaxXChange = event => {
+    const maxX = Number(event.target.value);
+    const { settings } = this.state;
+    settings.maxX = maxX;
+    this.setState(() => ({ settings }));
+  }
+  
+  onMinYChange = event => {
+    const minY = Number(event.target.value);
+    const { settings } = this.state;
+    settings.minY = minY;
     this.setState(() => ({ settings }));
   }
 
@@ -231,6 +254,45 @@ class MandelbrotComponent extends Component {
               step={1}
             />
             <SettingValue>{this.state.settings.iterations}</SettingValue>
+          </SettingInputWrapper>
+          
+          <SettingTitle>MinX:</SettingTitle>
+          <SettingInputWrapper>
+            <SettingInput
+              onChange={this.onMinXChange}
+              type="range"
+              min={-2}
+              max={1}
+              value={this.state.settings.minX}
+              step={.001}
+            />
+            <SettingValue>{this.state.settings.minX}</SettingValue>
+          </SettingInputWrapper>
+          
+          <SettingTitle>MaxX:</SettingTitle>
+          <SettingInputWrapper>
+            <SettingInput
+              onChange={this.onMaxXChange}
+              type="range"
+              min={0}
+              max={1.5}
+              value={this.state.settings.maxX}
+              step={.001}
+            />
+            <SettingValue>{this.state.settings.maxX}</SettingValue>
+          </SettingInputWrapper>
+          
+          <SettingTitle>MinY:</SettingTitle>
+          <SettingInputWrapper>
+            <SettingInput
+              onChange={this.onMinYChange}
+              type="range"
+              min={-1.2}
+              max={1.5}
+              value={this.state.settings.minY}
+              step={.001}
+            />
+            <SettingValue>{this.state.settings.minY}</SettingValue>
           </SettingInputWrapper>
         </Settings>
       </MandelbrotWrapper>
