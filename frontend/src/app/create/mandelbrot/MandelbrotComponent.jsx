@@ -79,15 +79,23 @@ class MandelbrotComponent extends Component {
     this.state = {
       settings: {
         colors: [
+          [66, 30, 15],
+          [9, 1, 47],
+          [0, 7, 100],
           [25, 7, 26],
           [57, 125, 209],
           [211, 236, 248],
+          [248, 201, 95],
           [255, 170, 0],
         ],
         colorsHex: [
+          '#421e0f',
+          '#09012f',
+          '#09012f',
           '#19071a',
           '#397dd1',
           '#d3ecf8',
+          '#f8c95f',
           '#ffaa00',
         ],
         mainColor: [0, 0, 0],
