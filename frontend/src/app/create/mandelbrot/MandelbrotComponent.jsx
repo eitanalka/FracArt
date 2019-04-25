@@ -101,6 +101,7 @@ class MandelbrotComponent extends Component {
         mainColor: [0, 0, 0],
         mainColorHex: '#000000',
         started: true,
+        iterations: 100,
         type: 'mandelbrot',
       },
       modalIsOpen: false,
@@ -151,7 +152,6 @@ class MandelbrotComponent extends Component {
     this.mandelbrot.draw();
   }
 
-
   onBackgroundColorChange = (color, event, value) => {
     const { settings } = this.state;
     const { r, g, b } = color.rgb;
@@ -160,12 +160,19 @@ class MandelbrotComponent extends Component {
     this.setState({ settings });
   }
 
-  onMainColorChange = (color, event, value) => {
+  onMainColorChange = color => {
     const { settings } = this.state;
     const { r, g, b } = color.rgb;
     settings.mainColor = [r, g, b];
     settings.mainColorHex = color.hex; 
     this.setState({ settings });
+  }
+
+  onIterationsChange = event => {
+    const iterations = Number(event.target.value);
+    const { settings } = this.state;
+    settings.iterations = iterations;
+    this.setState(() => ({ settings }));
   }
 
   render() {
@@ -212,6 +219,19 @@ class MandelbrotComponent extends Component {
               value="main"
             />
           </div>
+
+          <SettingTitle>Iterations:</SettingTitle>
+          <SettingInputWrapper>
+            <SettingInput
+              onChange={this.onIterationsChange}
+              type="range"
+              min={10}
+              max={2000}
+              value={this.state.settings.iterations}
+              step={1}
+            />
+            <SettingValue>{this.state.settings.iterations}</SettingValue>
+          </SettingInputWrapper>
         </Settings>
       </MandelbrotWrapper>
     )

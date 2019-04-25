@@ -12,7 +12,7 @@ const Mandelbrot = (mb = {}) => {
 
   mb.draw = () => {
     if(mb.props.started) {
-      const maxiterations = 100;
+      const maxiterations = mb.props.iterations;
   
       mb.loadPixels();
       for (let x = 0; x < mb.width; x++) {
