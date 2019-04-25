@@ -40,7 +40,7 @@ const StyledModal = styled(ModalAdapter)`
     outline: none;
     padding: 20px;
     position: absolute;
-    top: 25rem;
+    top: 15rem;
     -webkit-overflow-scrolling: touch;
   }
 `;

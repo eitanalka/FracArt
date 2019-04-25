@@ -217,6 +217,7 @@ class MandelbrotComponent extends Component {
               saveFractal={this.props.saveFractal}
               settings={this.state.settings}
               googleToken={this.props.googleToken}
+              autofocus
             />
           </React.Fragment>
         )}
